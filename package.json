@@ -9,7 +9,11 @@
     "deploy": "sst deploy",
     "remove": "sst remove",
     "console": "sst console",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:push": "npm run drizzle-kit push:mysql -w db",
+    "db:introspect": "npm run drizzle-kit introspect:mysql -w db",
+    "db:studio": "npm run drizzle-kit studio -w db",
+    "db:migrate": "npm run drizzle-kit generate:mysql -w db"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.0",

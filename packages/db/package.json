@@ -1,0 +1,22 @@
+{
+  "name": "db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.0",
+    "drizzle-kit": "^0.19.3",
+    "sst": "^2.19.1",
+    "typescript": "^5.1.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "drizzle-kit": "sst bind --script drizzle-kit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@planetscale/database": "^1.8.0",
+    "drizzle-orm": "^0.27.0"
+  }
+}

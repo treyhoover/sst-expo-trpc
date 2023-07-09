@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1688911215153,
+      "tag": "0000_magical_network",
+      "breakpoints": true
+    }
+  ]
+}
