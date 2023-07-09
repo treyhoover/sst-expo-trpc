@@ -4,8 +4,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "baseUrl": ".",
-    "paths": {
-      "@notes/config": ["../config/index"]
-    }
+    "paths": {}
   }
 }

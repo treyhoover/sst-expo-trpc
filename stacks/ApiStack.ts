@@ -6,9 +6,8 @@ export function ApiStack({ stack }: StackContext) {
 
   const api = new Api(stack, "api", {
     routes: {
-      "GET /": "packages/functions/src/lambda.handler",
-      "GET /todo": "packages/functions/src/todo.list",
-      "POST /todo": "packages/functions/src/todo.create",
+      "GET /trpc/{proxy+}": "packages/functions/src/trpc/index.handler",
+      "POST /trpc/{proxy+}": "packages/functions/src/trpc/index.handler",
     },
     defaults: {
       function: {
