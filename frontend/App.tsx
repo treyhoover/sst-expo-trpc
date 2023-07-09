@@ -56,13 +56,9 @@ export default function Root() {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() => {
     return trpc.createClient({
-      transformer: {
-        serialize: (data) => data,
-        deserialize: (data) => data,
-      },
       links: [
         httpBatchLink({
-          url: API_URL,
+          url: API_URL + "/trpc",
         }),
       ],
     });

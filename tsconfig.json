@@ -1,7 +1,12 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
-  "exclude": ["packages"],
   "compilerOptions": {
-    "moduleResolution": "node"
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {
+      "@notes/core/*": ["./packages/core/src/*"],
+      "@notes/db/*": ["./packages/db/*"],
+      "@notes/functions/*": ["./packages/functions/src/*"]
+    }
   }
 }
