@@ -1,52 +1,47 @@
 import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { httpBatchLink } from "@trpc/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NativeWindStyleSheet } from "nativewind";
-import { trpc } from "./utils/trpc";
 import { API_URL } from "@env";
-import { Todo } from "./components/Todo";
+import { trpc } from "./utils/trpc";
+import { TodoList } from "./components/Todo/TodoList";
+import { NewTodo } from "./components/Todo/NewTodo";
+import { useCreateTodo } from "./api/useCreateTodo";
+import { useAllTodos } from "./api/useAllTodos";
+import { useDeleteTodo } from "./api/useDeleteTodo";
 
 NativeWindStyleSheet.setOutput({
   default: "native",
 });
 
 function App() {
-  const createTodo = trpc.todo.create.useMutation();
-  const todos = trpc.todo.getAll.useQuery();
-  const [newTodoTitle, setNewTodoTitle] = useState("");
-  const [newTodoDescription, setNewTodoDescription] = useState("");
+  const createTodo = useCreateTodo();
+  const deleteTodo = useDeleteTodo();
+  const todos = useAllTodos();
+
+  const handleAddTodo = (text: string) => {
+    createTodo.mutate({
+      title: text,
+      description: "",
+    });
+  };
+
+  const handleDeleteTodo = (id: number) => {
+    deleteTodo.mutate({ id });
+  };
+
+  const todoItems = todos.data;
+
+  if (!todoItems) return null;
 
   return (
     <View className="flex-1 bg-white p-4">
-      {todos.data?.map((todo) => (
-        <Todo key={todo.id} {...todo} />
-      ))}
+      <TodoList items={todoItems} onDelete={handleDeleteTodo} />
 
       <View className="flex flex-row">
-        <TextInput
-          value={newTodoTitle}
-          onChangeText={setNewTodoTitle}
-          placeholder="Title"
-        />
-        <TextInput
-          value={newTodoDescription}
-          onChangeText={setNewTodoDescription}
-          placeholder="Description"
-        />
-        <TouchableOpacity
-          onPress={() => {
-            createTodo.mutate({
-              title: newTodoTitle,
-              description: newTodoDescription,
-            });
-            setNewTodoTitle("");
-            setNewTodoDescription("");
-          }}
-        >
-          <Text>Create TODO</Text>
-        </TouchableOpacity>
+        <NewTodo onAdd={handleAddTodo} />
       </View>
     </View>
   );
